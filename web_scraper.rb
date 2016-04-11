@@ -24,9 +24,10 @@ require 'mechanize'
 agent = Mechanize.new
 base_page  = agent.get('http://foundationcenter.org/findfunders/990finder/')
 
-base_page.form.radiobuttons_with(:name => '990_type')[1].check
-pp base_page
-form_990_form = base_page.form('nil')
-form_990_form.fn = "test"
+base_page.form.radiobuttons_with(:name => '990_type')[1].checked
 
+form_990_form = base_page.form()
+form_990_form.fn = "Caring for Cambodia"
+
+base_page = agent.submit(form_990_form, form_990_form.buttons.first)
 pp base_page

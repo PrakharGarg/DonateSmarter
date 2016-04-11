@@ -1,5 +1,4 @@
 class CharitiesController < ApplicationController
-
-  def home
+  def search
   end
 end
