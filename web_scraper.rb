@@ -1,13 +1,11 @@
-require 'HTTParty'
-require 'Nokogiri'
-require 'JSON'
-require 'Pry'
-require 'csv'
+require 'rubygems'
+require 'mechanize'
 
-page = HTTParty.get('http://austin.craigslist.org/search/pet?s=0')
-
-parse_page = Nokogiri::HTML(page)
-
-bikes_array = []
-
-Pry.start(binding)
+# Instatiate a new mechanize object
+agent = Mechanize.new
+# Use the agent to fetch a page
+page = agent.get('http://google.com/')
+# List all of the links on the homepage
+# page.links.each do |link|
+#   puts link.text
+# end
