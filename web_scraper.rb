@@ -41,7 +41,16 @@ pdf = base_page.link_with(:text => "Caring for Cambodia").click
 # Open the pdf
 io = open(pdf.uri.to_s)
 reader = PDF::Reader.new(io)
-# Print out the page
-reader.pages.each do |page|
-  puts page.text
+# # Print out everything in the pdf
+# reader.pages.each do |page|
+#   puts page.text
+# end
+
+# Store the text in a string. 
+temp_store = ""
+PDF::Reader.open(io) do |reader|
+  reader.pages.each do |page|
+    temp_store += page.text
+  end
 end
+print temp_store
