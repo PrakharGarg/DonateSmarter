@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'mechanize'
+require 'pdf-reader'
+require 'open-uri'
 
 # # Instatiate a new mechanize object
 # agent = Mechanize.new
@@ -36,4 +38,7 @@ base_page = agent.submit(form_990_form, form_990_form.buttons.first)
 
 # Get the latest Form 990
 pdf = base_page.link_with(:text => "Caring for Cambodia").click
-pp pdf
+# Open the pdf
+io = open(pdf.uri.to_s)
+reader = PDF::Reader.new(io)
+puts reader.info
