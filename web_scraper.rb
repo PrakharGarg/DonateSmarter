@@ -21,13 +21,19 @@ require 'mechanize'
 
 ##########Scraping Data##########
 
+# Create a new agent
 agent = Mechanize.new
+# Get the base page
 base_page  = agent.get('http://foundationcenter.org/findfunders/990finder/')
-
+# Check the Form 990 only option
 base_page.form.radiobuttons_with(:name => '990_type')[1].checked
-
+# Get the form
 form_990_form = base_page.form()
+# Input "Caring for Cambodia into the fn field"
 form_990_form.fn = "Caring for Cambodia"
-
+# Submit the form
 base_page = agent.submit(form_990_form, form_990_form.buttons.first)
-pp base_page
+
+# Get the latest Form 990
+pdf = base_page.link_with(:text => "Caring for Cambodia").click
+pp pdf
