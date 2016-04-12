@@ -46,11 +46,26 @@ reader = PDF::Reader.new(io)
 #   puts page.text
 # end
 
-# Store the text in a string. 
+# Store the text in a string.
 temp_store = ""
 PDF::Reader.open(io) do |reader|
   reader.pages.each do |page|
     temp_store += page.text
   end
 end
-print temp_store
+# print temp_store
+
+# Create a Hash of stuff I actually want.
+dict_of_stuff_I_care_about = Hash.new
+# Split into an array of words
+temp_store = temp_store.split
+# Get Gross Receipts
+gross_index = temp_store.index("Gross")
+dict_of_stuff_I_care_about[:gross_receipts] = temp_store[gross_index+3]
+# Get number of employees
+employee_index = temp_store.index("employed") + 10
+dict_of_stuff_I_care_about[:number_of_employees] = temp_store[employee_index]
+# Get number of volunteers
+volunteer_index = temp_store.index("volunteers")+4
+dict_of_stuff_I_care_about[:number_of_volunteers] = temp_store[volunteer_index]
+puts dict_of_stuff_I_care_about
