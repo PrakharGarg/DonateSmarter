@@ -3,7 +3,10 @@ class CharitiesController < ApplicationController
   require 'mechanize'
 
   def search
-    # Create a new agent
-    
+    # updates the database.
+  end
+
+  def display
+    # Search the database and display the info for the specific charity.
   end
 end
