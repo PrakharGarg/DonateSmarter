@@ -53,7 +53,7 @@ PDF::Reader.open(io) do |reader|
     temp_store += page.text
   end
 end
-print temp_store
+# print temp_store
 
 # # Create a Hash of stuff I actually want.
 # dict_of_stuff_I_care_about = Hash.new
