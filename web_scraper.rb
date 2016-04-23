@@ -50,7 +50,7 @@ reader = PDF::Reader.new(io)
 temp_store = ""
 PDF::Reader.open(io) do |reader|
   reader.pages.each do |page|
-    temp_store += page.text
+    temp_store += page.text #
   end
 end
 # print temp_store
