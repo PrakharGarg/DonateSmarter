@@ -1,3 +1,4 @@
 <div>
   <% message = "This action will produce a large CSV file\n\nPlease only continue if you know what you are doing.\n\n\nAre you really sure?" %>
+  <p><%= link_to "All Charities CSV", full_download_path(format: :csv), data: {confirm: message} %></p>
 </div>
