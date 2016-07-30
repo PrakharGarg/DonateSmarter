@@ -13,13 +13,30 @@ class FullReportsController < ApplicationController
     self.response.headers["Content-Transfer-Encoding"] = "binary"
     self.response.headers["Last-Modified"] = Time.now.ctime.to_s
     
-    
+    a = Hash.from_xml(File.read("./cfc.xml"))
+    field_names = []
+    recrusive_find_hash(a,field_names)
     
     self.response_body = Enumerator.new do |yielder|
       
-      yielder << index_header_names().to_csv
-      
-      
+      yielder << field_names.to_csv
+    end
+end
+
+def recrusive_find_hash(hash,field_names)
+    hash.each do |key,value|
+      if value.is_a? Hash 
+        recrusive_find_hash(value,field_names)
+      else
+        field_names.push(key.to_s)
+      end
+    end
+end
+    # self.response_body = Enumerator.new do |yielder|
+    #   
+    #   yielder << index_header_names().to_csv
+    #   
+    #   
       
       # fees.find_each(batch_size: 100) do |donation|
       #   if (donation.fee_name.include? "Champions")
@@ -47,22 +64,6 @@ class FullReportsController < ApplicationController
           # yielder << data_row.to_csv
           
         # end
-      end
-    end
-
-  def index_header_names()
-    field_names = %w(
-    First_Name
-    Last_Name
-    Address
-    City
-    Zip_Code
-    Email  
-    Customer_Id
-    Fee_Name
-    Quantity
-    Total_Donation
-    Order_Date
-    )
-  end
+    #   end
+    # end
 end
