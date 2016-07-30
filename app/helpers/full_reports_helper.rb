@@ -1,0 +1,2 @@
+module FullReportsHelper
+end
