@@ -4,14 +4,14 @@ Rails.application.routes.draw do
   
   root 'welcome#index'
   get "welcome/add_charities"
-
-  get 'charities/search'
-
-  get 'charities/home'
-  
+    
   get 'full_csv' => 'full_reports#index'
   
   get 'full_download' => 'full_reports#csv'
+  
+  get "csv" => "charity_csv#csv"
+  
+  get "autocomplete" => "welcome#autocomplete_charity_name"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
