@@ -6,7 +6,6 @@ class FullReportsController < ApplicationController
   
   
   def csv
-    binding.pry
     if params[:q].blank? || params[:s].blank?
       redirect_to full_csv_path
     end
