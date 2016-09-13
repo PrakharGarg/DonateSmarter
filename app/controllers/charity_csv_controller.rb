@@ -37,30 +37,29 @@ class CharityCsvController < ApplicationController
       
       yielder << field_names.to_csv
       yielder << field_values.to_csv
-      
     end
-end
+  end
 
-# Recursively find all of the headers and rows for the CSV by finding the 
-# bottom node for each hash.
-# Params:
-#   charity_hash
-#     Hash format of the JSON of the charity 
-#   field_names 
-#     Array that contains all of the headers for the CSV
-#   field_values 
-#     Array that contains all of the cell values for the CSV
-def recrusive_find_hash(charity_hash,field_names,values)
-    charity_hash.each do |key,value|
-      # If value is a hash, call the function again
-      if value.is_a? Hash 
-        recrusive_find_hash(value,field_names,values)
-      else
-        # If value is not a hash, key is the header and the value is the value
-        field_names.push(key.to_s)
-        values.push(value.to_s)
+  # Recursively find all of the headers and rows for the CSV by finding the 
+  # bottom node for each hash.
+  # Params:
+  #   charity_hash
+  #     Hash format of the JSON of the charity 
+  #   field_names 
+  #     Array that contains all of the headers for the CSV
+  #   field_values 
+  #     Array that contains all of the cell values for the CSV
+  def recrusive_find_hash(charity_hash,field_names,values)
+      charity_hash.each do |key,value|
+        # If value is a hash, call the function again
+        if value.is_a? Hash 
+          recrusive_find_hash(value,field_names,values)
+        else
+          # If value is not a hash, key is the header and the value is the value
+          field_names.push(key.to_s)
+          values.push(value.to_s)
+        end
       end
-    end
-end
-  
+  end
+
 end
