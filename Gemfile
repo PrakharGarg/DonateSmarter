@@ -34,6 +34,9 @@ gem 'rails4-autocomplete'
 
 gem 'jquery-ui-rails'
 
+gem 'tilt', '>= 1.3.4', '~> 1.3'
+gem 'sinatra', '>= 1.4.4'
+
 gem 'rails_12factor', group: :production
 
 # Use ActiveModel has_secure_password
@@ -48,7 +51,7 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'sqlite3'
+  # gem 'sqlite3'
 end
 
 group :development do
