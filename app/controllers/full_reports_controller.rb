@@ -66,15 +66,18 @@ class FullReportsController < ApplicationController
   #     Array that contains all of the cell values for the CSV
   def recursive_find_hash(charity_hash,field_names,values)
       charity_hash.each do |key,value|
-        if key == "OfficerDirectorTrusteeEmplGrp"
-        end
         # If value is a hash, call the function again
         if value.is_a? Hash 
           recursive_find_hash(value,field_names,values)
         elsif value.is_a? Array 
-          value.each do |array|
-            recursive_find_hash(array, field_names, values)
-          end  
+          if (value.first.is_a? Hash) == false
+            field_names.push(key.to_s)
+            values.push(value.to_s)
+          else
+            value.each do |array|
+              recursive_find_hash(array, field_names, values)
+            end  
+          end
         else
         # If value is not a hash, key is the header and the value is the value
         field_names.push(key.to_s)
