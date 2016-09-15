@@ -67,7 +67,6 @@ class FullReportsController < ApplicationController
   def recursive_find_hash(charity_hash,field_names,values)
       charity_hash.each do |key,value|
         if key == "OfficerDirectorTrusteeEmplGrp"
-          binding.pry 
         end
         # If value is a hash, call the function again
         if value.is_a? Hash 
