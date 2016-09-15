@@ -47,7 +47,7 @@ class FullReportsController < ApplicationController
         end
         field_names = []
         field_values = []
-        recrusive_find_hash(charity_hash,field_names,field_values)
+        recursive_find_hash(charity_hash,field_names,field_values)
         
         yielder << field_names.to_csv
         yielder << field_values.to_csv
@@ -64,15 +64,22 @@ class FullReportsController < ApplicationController
   #     Array that contains all of the headers for the CSV
   #   field_values 
   #     Array that contains all of the cell values for the CSV
-  def recrusive_find_hash(charity_hash,field_names,values)
+  def recursive_find_hash(charity_hash,field_names,values)
       charity_hash.each do |key,value|
+        if key == "OfficerDirectorTrusteeEmplGrp"
+          binding.pry 
+        end
         # If value is a hash, call the function again
         if value.is_a? Hash 
-          recrusive_find_hash(value,field_names,values)
+          recursive_find_hash(value,field_names,values)
+        elsif value.is_a? Array 
+          value.each do |array|
+            recursive_find_hash(array, field_names, values)
+          end  
         else
-          # If value is not a hash, key is the header and the value is the value
-          field_names.push(key.to_s)
-          values.push(value.to_s)
+        # If value is not a hash, key is the header and the value is the value
+        field_names.push(key.to_s)
+        values.push(value.to_s)
         end
       end
   end
