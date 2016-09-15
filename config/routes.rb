@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   
   root 'welcome#index'
-  get "welcome/add_charities"
+  # get "welcome/add_charities"
     
   get 'full_csv' => 'full_reports#index'
   
