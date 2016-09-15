@@ -34,9 +34,6 @@ gem 'rails4-autocomplete'
 
 gem 'jquery-ui-rails'
 
-gem 'tilt', '>= 1.3.4', '~> 1.3'
-gem 'sinatra', '>= 1.4.4'
-
 gem 'rails_12factor', group: :production
 
 # Use ActiveModel has_secure_password
