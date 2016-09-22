@@ -35,7 +35,7 @@ class FullReportsController < ApplicationController
       
     self.response_body = Enumerator.new do |yielder|
         
-      Charity.where(:id => params[:q]..params[:s]).each do |charity|
+      Charity.find_each(:start => params[:q], :finish => params[:s], :batch_size => 100) do |charity|
         url = charity.url
         # Read the json from the S3 URL
         xml = open(url)
