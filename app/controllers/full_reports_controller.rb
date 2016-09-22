@@ -34,8 +34,8 @@ class FullReportsController < ApplicationController
     # recrusive_find_hash(charity_hash,field_names,field_values)
       
     self.response_body = Enumerator.new do |yielder|
-        
-      Charity.find_each(:start => params[:q], :finish => params[:s], :batch_size => 100) do |charity|
+      charities = Charity.where(:id => params[:q]..params[:s])
+      charities.find_each(:batch_size => 100) do |charity|
         url = charity.url
         # Read the json from the S3 URL
         xml = open(url)
