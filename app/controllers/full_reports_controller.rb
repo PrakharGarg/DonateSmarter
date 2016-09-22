@@ -6,6 +6,8 @@ class FullReportsController < ApplicationController
   
   
   def csv
+    render stream: true
+    
     if params[:q].blank? || params[:s].blank?
       redirect_to full_csv_path
     end
