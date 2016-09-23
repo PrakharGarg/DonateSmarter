@@ -6,7 +6,6 @@ class FullReportsController < ApplicationController
   
   
   def csv
-    render stream: true
     
     if params[:q].blank? || params[:s].blank?
       redirect_to full_csv_path
@@ -22,6 +21,7 @@ class FullReportsController < ApplicationController
     self.response.headers["Last-Modified"] = Time.now.ctime.to_s
     
     i = 0
+    x = 1
     # url = Charity.first.url
     # # Read the json from the S3 URL
     # xml = open(url)
@@ -34,8 +34,8 @@ class FullReportsController < ApplicationController
     # field_names = []
     # field_values = []
     # recrusive_find_hash(charity_hash,field_names,field_values)
-      
     self.response_body = Enumerator.new do |yielder|
+      
       charities = Charity.where(:id => params[:q]..params[:s])
       charities.find_each(:batch_size => 100) do |charity|
         url = charity.url
@@ -53,6 +53,13 @@ class FullReportsController < ApplicationController
         
         yielder << field_names.to_csv
         yielder << field_values.to_csv
+        if (i / 100) > x 
+          binding.pry
+          http = Net::HTTP.new('www.google.com',80)
+          response = http.request_get('/')
+          x +=1
+        end
+        i +=1
       end
     end
   end
@@ -86,6 +93,7 @@ class FullReportsController < ApplicationController
         values.push(value.to_s)
         end
       end
+      
   end
 
 end
