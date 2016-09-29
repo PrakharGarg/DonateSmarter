@@ -49,6 +49,7 @@ class FullReportsController < ApplicationController
         end
         field_names = []
         field_values = []
+        @counter = 0
         recursive_find_hash(charity_hash,field_names,field_values)
         
         yielder << field_names.to_csv
@@ -80,6 +81,10 @@ class FullReportsController < ApplicationController
           recursive_find_hash(value,field_names,values)
         elsif value.is_a? Array 
           if (value.first.is_a? Hash) == false
+            if field_names.include? (key.to_s)
+              key += @counter.to_s
+              @counter += 1
+            end
             field_names.push(key.to_s)
             values.push(value.to_s)
           else
@@ -89,6 +94,10 @@ class FullReportsController < ApplicationController
           end
         else
         # If value is not a hash, key is the header and the value is the value
+        if field_names.include? key.to_s
+          key += @counter.to_s
+          @counter += 1
+        end
         field_names.push(key.to_s)
         values.push(value.to_s)
         end
